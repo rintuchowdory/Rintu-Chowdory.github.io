@@ -40,7 +40,7 @@
         .tesla-icon {
             font-size: 3em;
             margin-bottom: 20px;
-            color: #e82127; /* Tesla red */
+            color: #e82127;
         }
 
         .input-group {
@@ -126,7 +126,7 @@
     </div>
 
     <script>
-        const API_URL = 'https://github2006.execute-api.eu-central-1.amazonaws.com/Prod/ask';
+        const API_URL = 'https://ptmhw2648c.execute-api.eu-central-1.amazonaws.com/Prod/ask';
 
         function handleKeyPress(event) {
             if (event.key === 'Enter') {
@@ -156,20 +156,28 @@
                 const result = await fetch(API_URL, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json',
+                        'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({ question: question })
                 });
 
+                // Check if response is OK before parsing JSON
+                if (!result.ok) {
+                    throw new Error('API request failed with status: ' + result.status);
+                }
+
                 const data = await result.json();
 
-                if (result.ok) {
-                    showResponse(data.response || data.body?.response || 'No response received');
+                // Handle different response formats
+                if (data.response) {
+                    showResponse(data.response);
+                } else if (data.body && data.body.response) {
+                    showResponse(data.body.response);
                 } else {
-                    showError(data.error || 'Failed to get response from Tesla');
+                    showResponse('No response received from Tesla');
                 }
             } catch (err) {
-                showError('Network error: ' + err.message);
+                showError('Error: ' + err.message);
             } finally {
                 loading.style.display = 'none';
                 askButton.disabled = false;
@@ -177,23 +185,23 @@
         }
 
         function showResponse(message) {
-            const response = document.getElementById('response');
-            const error = document.getElementById('error');
+            const responseElement = document.getElementById('response');
+            const errorElement = document.getElementById('error');
             
-            error.style.display = 'none';
-            response.innerHTML = `<strong>Tesla:</strong> ${message}`;
-            response.style.display = 'block';
+            errorElement.style.display = 'none';
+            responseElement.innerHTML = '<strong>Tesla:</strong> ' + message;
+            responseElement.style.display = 'block';
         }
 
         function showError(message) {
-            const response = document.getElementById('response');
-            const error = document.getElementById('error');
-            const loading = document.getElementById('loading');
+            const responseElement = document.getElementById('response');
+            const errorElement = document.getElementById('error');
+            const loadingElement = document.getElementById('loading');
             
-            loading.style.display = 'none';
-            response.style.display = 'none';
-            error.textContent = message;
-            error.style.display = 'block';
+            loadingElement.style.display = 'none';
+            responseElement.style.display = 'none';
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
         }
     </script>
 </body>

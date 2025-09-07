@@ -1,21 +1,38 @@
 import json
-import os
-from groq import Groq
-
-client = Groq(api_key=os.environ['GROQ_API_KEY'])
+import groq
 
 def handler(event, context):
-    question = json.loads(event['body'])['question']
+    try:
+        # Your existing code to process the question
+        client = groq.Client(api_key=os.environ.get("GROQ_API_KEY"))
+        
+        # ... your existing logic to generate response ...
+        
+        # Return response with CORS headers
+        return {
+            "statusCode": 200,
+            "headers": {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*",  # This allows all domains
+                "Access-Control-Allow-Methods": "POST, OPTIONS",
+                "Access-Control-Allow-Headers": "Content-Type"
+            },
+            "body": json.dumps({
+                "response": "Your generated response here"
+            })
+        }
     
-    response = client.chat.completions.create(
-        model="llama-3.1-8b-instant",
-        messages=[
-            {"role": "system", "content": "You are Nikola Tesla..."},
-            {"role": "user", "content": question}
-        ]
-    )
-    
-    return {
-        'statusCode': 200,
-        'body': json.dumps({'response': response.choices[0].message.content})
-    }
+    except Exception as e:
+        # Error response with CORS headers
+        return {
+            "statusCode": 500,
+            "headers": {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "POST, OPTIONS",
+                "Access-Control-Allow-Headers": "Content-Type"
+            },
+            "body": json.dumps({
+                "error": str(e)
+            })
+        }
