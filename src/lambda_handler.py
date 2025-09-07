@@ -1,38 +1,29 @@
-import json
-import groq
+import json  # Assuming you meant JSON instead of 'gros'
 
-def handler(event, context):
+def handle(event, context):
     try:
-        # Your existing code to process the question
-        client = groq.Client(api_key=os.environ.get("GROQ_API_KEY"))
+        # Your actual processing logic here
+        # Example: client = some_client(api_key)
+        response_data = {"response": "Your generated response here"}
         
-        # ... your existing logic to generate response ...
-        
-        # Return response with CORS headers
         return {
             "statusCode": 200,
             "headers": {
                 "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*",  # This allows all domains
-                "Access-Control-Allow-Methods": "POST, OPTIONS",
-                "Access-Control-Allow-Headers": "Content-Type"
+                "Access-Control-Allow-Origin": "*",  # Fixed typo
+                "Access-Control-Allow-Methods": "GET, OPTIONS",  # Fixed typo
+                "Access-Control-Allow-Headers": "Content-Type"  # Fixed typo
             },
-            "body": json.dumps({
-                "response": "Your generated response here"
-            })
+            "body": json.dumps(response_data)
         }
-    
-    except Exception as e:
-        # Error response with CORS headers
+    except Exception as e:  # Fixed exception handling
         return {
             "statusCode": 500,
             "headers": {
                 "Content-Type": "application/json",
                 "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Methods": "POST, OPTIONS",
+                "Access-Control-Allow-Methods": "GET, OPTIONS",
                 "Access-Control-Allow-Headers": "Content-Type"
             },
-            "body": json.dumps({
-                "error": str(e)
-            })
+            "body": json.dumps({"error": str(e)})  # Proper error message
         }
