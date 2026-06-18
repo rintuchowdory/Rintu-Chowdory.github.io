@@ -605,18 +605,202 @@
         .tl-item.open .tl-desc { max-height: 200px; }
         .tl-item.open .tl-dot { background: var(--amber); box-shadow: 0 0 8px var(--amber); }
 
+        /* ── Floating Controls ── */
+        .float-bar {
+            position: fixed;
+            top: 14px;
+            right: 14px;
+            z-index: 100;
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            max-width: 220px;
+        }
+        .float-btn {
+            font-size: 12px;
+            font-weight: 600;
+            font-family: 'Space Grotesk', sans-serif;
+            padding: 6px 13px;
+            border-radius: 100px;
+            border: 1px solid var(--border);
+            background: rgba(7,7,26,0.88);
+            backdrop-filter: blur(12px);
+            color: var(--muted);
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        .float-btn:hover { color: var(--white); border-color: rgba(0,212,255,0.35); }
+        .float-btn.active { color: var(--blue); border-color: var(--blue); background: rgba(0,212,255,0.08); }
+
+        /* ── Daily Quote ── */
+        .quote-banner {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--amber);
+            border-radius: 10px;
+            padding: 14px 18px 14px 24px;
+            margin-bottom: 36px;
+            font-size: 13px;
+            font-style: italic;
+            color: #c4c8dc;
+            line-height: 1.65;
+            position: relative;
+        }
+        .quote-banner::before {
+            content: '"';
+            font-size: 38px;
+            font-family: Georgia, serif;
+            color: var(--amber);
+            opacity: 0.35;
+            position: absolute;
+            top: 2px;
+            left: 10px;
+            line-height: 1;
+        }
+        .quote-author {
+            font-style: normal;
+            font-weight: 600;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 11px;
+            color: var(--amber);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-top: 8px;
+        }
+
+        /* ── Toast ── */
+        .toast {
+            position: fixed;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            padding: 10px 22px;
+            font-size: 13px;
+            color: var(--blue);
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+        .toast.show { opacity: 1; }
+
+        /* ── Vote Widget ── */
+        .vote-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        .vote-btn {
+            flex: 1;
+            min-width: 140px;
+            padding: 16px 20px;
+            border-radius: 12px;
+            border: 2px solid var(--border);
+            background: var(--surface2);
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+        .vote-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+        .vote-btn.tesla-btn { border-color: rgba(0,212,255,0.2); }
+        .vote-btn.tesla-btn:hover, .vote-btn.tesla-btn.voted { border-color: var(--blue); background: rgba(0,212,255,0.08); }
+        .vote-btn.edison-btn { border-color: rgba(255,183,3,0.2); }
+        .vote-btn.edison-btn:hover, .vote-btn.edison-btn.voted { border-color: var(--amber); background: rgba(255,183,3,0.08); }
+        .vote-btn .vote-icon { font-size: 30px; margin-bottom: 6px; }
+        .vote-btn .vote-name { font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 700; }
+        .vote-btn.tesla-btn .vote-name { color: var(--blue); }
+        .vote-btn.edison-btn .vote-name { color: var(--amber); }
+        .vote-btn .vote-sub { font-size: 11px; color: var(--muted); margin-top: 4px; }
+        .vote-results { margin-top: 8px; }
+        .vote-bar-row { margin-bottom: 10px; }
+        .vote-bar-label {
+            display: flex;
+            justify-content: space-between;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        .vote-bar-track {
+            height: 8px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 100px;
+            overflow: hidden;
+        }
+        .vote-bar-fill {
+            height: 100%;
+            border-radius: 100px;
+            transition: width 0.7s ease;
+        }
+        .vote-note { font-size: 11px; color: var(--muted); text-align: center; margin-top: 12px; }
+
+        /* ── Stats ── */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+            gap: 14px;
+            margin-top: 20px;
+        }
+        .stat-card {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px 14px;
+            text-align: center;
+        }
+        .stat-number {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--blue);
+            margin-bottom: 4px;
+            letter-spacing: -0.02em;
+        }
+        .stat-label { font-size: 12px; color: var(--muted); line-height: 1.5; }
+        .stat-note { font-size: 10px; color: rgba(107,113,153,0.6); margin-top: 4px; }
+
+        /* ── Mood transitions ── */
+        .chat-window { transition: box-shadow 1.8s ease, border-color 1.8s ease; }
+        .mood-edison .chat-window {
+            border-color: rgba(255,183,3,0.25);
+            box-shadow: 0 0 60px rgba(255,183,3,0.06), 0 24px 64px rgba(0,0,0,0.4);
+        }
+        .mood-tech .chat-window {
+            border-color: rgba(0,212,255,0.3);
+            box-shadow: 0 0 80px rgba(0,212,255,0.08), 0 24px 64px rgba(0,0,0,0.4);
+        }
+
         @media (max-width: 500px) {
             .page { padding: 28px 16px 48px; }
             .hero-title { font-size: 36px; }
             .messages { padding: 20px 16px; }
             .edu-card { padding: 20px 18px; }
             .vision-grid { grid-template-columns: 1fr 1fr; }
+            .float-bar { max-width: 160px; top: 8px; right: 8px; }
+            .float-btn { font-size: 11px; padding: 5px 10px; }
         }
     </style>
 </head>
 <body>
 
 <canvas id="bg-canvas"></canvas>
+
+<!-- Floating controls -->
+<div class="float-bar">
+    <button class="float-btn" id="soundBtn" onclick="toggleSound()">🔇 Sound</button>
+    <button class="float-btn" id="saveChatBtn" onclick="saveChat()">💾 Speichern</button>
+    <button class="float-btn" id="loadChatBtn" onclick="loadChat()">📂 Laden</button>
+    <button class="float-btn" id="langBtn" onclick="toggleLang()">🌍 DE/EN</button>
+</div>
+<div class="toast" id="toast"></div>
 
 <main class="page">
 
@@ -632,6 +816,11 @@
             <span class="accent">Nikola Tesla</span>
         </h1>
         <p class="hero-sub">An AI persona channeling the genius of Tesla — inventor of alternating current, pioneer of the modern electrical age.</p>
+
+        <div class="quote-banner">
+            <div id="quoteText"></div>
+            <div class="quote-author">– Nikola Tesla · Zitat des Tages</div>
+        </div>
     </section>
 
     <div class="chat-window">
@@ -673,10 +862,12 @@
         <p class="edu-subtitle">Entdecke Teslas Ideen, die unsere Welt bis heute prägen.</p>
 
         <div class="tabs">
-            <button class="tab-btn active" onclick="switchTab('energie')">🔋 Energie</button>
-            <button class="tab-btn" onclick="switchTab('kommunikation')">📡 Drahtlose Kommunikation</button>
-            <button class="tab-btn" onclick="switchTab('visionen')">🤖 Zukunftsvisionen</button>
-            <button class="tab-btn" onclick="switchTab('timeline')">⏳ Timeline</button>
+            <button class="tab-btn active" onclick="switchTab('energie', this)">🔋 Energie</button>
+            <button class="tab-btn" onclick="switchTab('kommunikation', this)">📡 Drahtlose Kommunikation</button>
+            <button class="tab-btn" onclick="switchTab('visionen', this)">🤖 Zukunftsvisionen</button>
+            <button class="tab-btn" onclick="switchTab('timeline', this)">⏳ Timeline</button>
+            <button class="tab-btn" onclick="switchTab('abstimmung', this)">🗳️ Abstimmung</button>
+            <button class="tab-btn" onclick="switchTab('statistiken', this)">📊 Statistiken</button>
         </div>
 
         <!-- ENERGIE -->
@@ -824,6 +1015,90 @@
                 </div>
             </div>
         </div>
+        <!-- ABSTIMMUNG -->
+        <div id="panel-abstimmung" class="tab-panel">
+            <div class="edu-card">
+                <h3>🗳️ Tesla vs. Edison – Wer war der größere Erfinder?</h3>
+                <p>Beide haben die Welt verändert – aber auf sehr unterschiedliche Wege. Tesla: visionär, wissenschaftlich, selbstlos. Edison: pragmatisch, unternehmerisch, marktorientiert. Wer hat mehr bewegt?</p>
+
+                <div class="vote-row">
+                    <button class="vote-btn tesla-btn" id="voteTesla" onclick="castVote('tesla')">
+                        <div class="vote-icon">⚡</div>
+                        <div class="vote-name">Nikola Tesla</div>
+                        <div class="vote-sub">AC · Spulen · Funken</div>
+                    </button>
+                    <button class="vote-btn edison-btn" id="voteEdison" onclick="castVote('edison')">
+                        <div class="vote-icon">💡</div>
+                        <div class="vote-name">Thomas Edison</div>
+                        <div class="vote-sub">Glühbirne · Phonograph · DC</div>
+                    </button>
+                </div>
+
+                <div class="vote-results" id="voteResults">
+                    <div class="vote-bar-row">
+                        <div class="vote-bar-label">
+                            <span style="color:var(--blue)">⚡ Tesla</span>
+                            <span id="teslaPct">0%</span>
+                        </div>
+                        <div class="vote-bar-track">
+                            <div class="vote-bar-fill" id="teslaBar" style="width:0%;background:var(--blue)"></div>
+                        </div>
+                    </div>
+                    <div class="vote-bar-row">
+                        <div class="vote-bar-label">
+                            <span style="color:var(--amber)">💡 Edison</span>
+                            <span id="edisonPct">0%</span>
+                        </div>
+                        <div class="vote-bar-track">
+                            <div class="vote-bar-fill" id="edisonBar" style="width:0%;background:var(--amber)"></div>
+                        </div>
+                    </div>
+                    <div class="vote-note" id="voteNote">Deine Stimme wurde gezählt 🙌</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- STATISTIKEN -->
+        <div id="panel-statistiken" class="tab-panel">
+            <div class="edu-card">
+                <h3>📊 Teslas Erbe in Zahlen – Live</h3>
+                <p>Teslas Wechselstrom treibt heute die gesamte Welt an. Hier siehst du, wie gewaltig sein Einfluss noch immer ist – in Echtzeit animiert.</p>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number" id="stat-kwh">0</div>
+                        <div class="stat-label">TWh Strom weltweit<br>pro Jahr (AC)</div>
+                        <div class="stat-note">~25.000 TWh/Jahr global</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="stat-countries">0</div>
+                        <div class="stat-label">Länder nutzen<br>Teslas AC-System</div>
+                        <div class="stat-note">195 Länder weltweit</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="stat-patents">0</div>
+                        <div class="stat-label">Patente von Tesla<br>in seinem Leben</div>
+                        <div class="stat-note">Über 300 Patente</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="stat-motors">0</div>
+                        <div class="stat-label">Mio. Elektromotoren<br>laufen gerade jetzt</div>
+                        <div class="stat-note">Basierend auf Tesla-Prinzipien</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="stat-evs">0</div>
+                        <div class="stat-label">Mio. Elektroautos<br>weltweit (2024)</div>
+                        <div class="stat-note">Tesla-Motor-Prinzip</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="stat-years">0</div>
+                        <div class="stat-label">Jahre seit Teslas<br>erstem AC-Patent</div>
+                        <div class="stat-note">Patent 1888</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </section>
 
 </main>
@@ -992,11 +1267,13 @@ inputEl.addEventListener('input', () => {
 });
 
 // ── Tab switching ──
-function switchTab(id) {
+function switchTab(id, btn) {
     document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     document.getElementById('panel-' + id).classList.add('active');
-    event.currentTarget.classList.add('active');
+    btn.classList.add('active');
+    if (id === 'statistiken') animateStats();
+    if (id === 'abstimmung') renderVotes();
 }
 
 // ── Timeline accordion ──
@@ -1005,6 +1282,305 @@ function toggleTl(el) {
     document.querySelectorAll('.tl-item').forEach(i => i.classList.remove('open'));
     if (!isOpen) el.classList.add('open');
 }
+
+// ── Daily Quote ──
+const QUOTES_DE = [
+    'Die Gegenwart gehört ihnen, die Zukunft gehört mir.',
+    'Wenn dein Hass stark genug wäre, würde er dich in Energie verwandeln – genug, um die Welt zu erleuchten.',
+    'Mein Gehirn ist nur ein Empfänger. Im Universum gibt es einen Kern, aus dem wir Wissen, Kraft und Inspiration schöpfen.',
+    'Es ist kaum zu viel zu sagen, dass die Schaltspule ein bedeutungsvolles Instrument für die Entwicklung der modernen Elektrizität ist.',
+    'Wenn du eine Erfindung verstehen willst, denke über Probleme nach, die sie löst.',
+    'Der Unterschied zwischen einem schlauen und einem weisen Menschen ist: Ein schlaues lernt aus seinen Fehlern, ein weises aus anderen.',
+    'Einsamkeit ist sehr schmerzhaft, wenn man jung ist, aber köstlich, wenn man gereift ist.',
+    'Wenn ihr wirklich lernen wollt, dann sucht die Wahrheit, nicht das Wissen.'
+];
+const QUOTES_EN = [
+    'The present is theirs; the future, for which I have really worked, is mine.',
+    'If your hate could be turned into electricity, it would light up the whole world.',
+    'My brain is only a receiver. In the Universe there is a core from which we obtain knowledge, strength, and inspiration.',
+    'It is nearly impossible to describe in words the extraordinary beauty and grandeur of a disruptive discharge.',
+    'If you want to find the secrets of the universe, think in terms of energy, frequency and vibration.',
+    'The scientists of today think deeply instead of clearly. One must be sane to think clearly, but one can think deeply and be quite insane.',
+    'Solitude is painful when one is young, but delightful when one is more mature.',
+    'Our virtues and our failings are inseparable, like force and matter.'
+];
+let currentLang = localStorage.getItem('teslaLang') || 'de';
+
+function setQuote() {
+    const quotes = currentLang === 'de' ? QUOTES_DE : QUOTES_EN;
+    const idx = Math.floor(Date.now() / 86400000) % quotes.length;
+    document.getElementById('quoteText').textContent = quotes[idx];
+}
+setQuote();
+
+// ── Language toggle ──
+function toggleLang() {
+    currentLang = currentLang === 'de' ? 'en' : 'de';
+    localStorage.setItem('teslaLang', currentLang);
+    document.getElementById('langBtn').textContent = currentLang === 'de' ? '🌍 DE/EN' : '🌍 EN/DE';
+    setQuote();
+    showToast(currentLang === 'de' ? '🇩🇪 Sprache: Deutsch' : '🇬🇧 Language: English');
+}
+
+// ── Toast ──
+function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2400);
+}
+
+// ── Save / Load Chat ──
+function saveChat() {
+    if (!history.length) { showToast('⚠️ Kein Chat zum Speichern.'); return; }
+    localStorage.setItem('teslaChatHistory', JSON.stringify(history));
+    showToast('💾 Chat gespeichert!');
+}
+
+function loadChat() {
+    const saved = localStorage.getItem('teslaChatHistory');
+    if (!saved) { showToast('📂 Kein gespeicherter Chat.'); return; }
+    const loaded = JSON.parse(saved);
+    if (!loaded.length) return;
+    if (emptyEl && emptyEl.parentNode) emptyEl.remove();
+    messagesEl.innerHTML = '';
+    history = [];
+    loaded.forEach(m => {
+        addMsg(m.role, m.content);
+        history.push(m);
+    });
+    showToast('📂 Chat wiederhergestellt!');
+}
+
+// ── Mood Detection ──
+const MOOD_RULES = [
+    { words: ['edison','dc','gleichstrom','war of currents','rival','konkurrenz'], mood: 'mood-edison' },
+    { words: ['ac','wechselstrom','spule','coil','frequenz','strom','electric','energie','energy'], mood: 'mood-tech' },
+];
+function detectMood(text) {
+    const lower = text.toLowerCase();
+    const page = document.querySelector('.page');
+    page.classList.remove('mood-edison','mood-tech');
+    for (const rule of MOOD_RULES) {
+        if (rule.words.some(w => lower.includes(w))) {
+            page.classList.add(rule.mood);
+            return;
+        }
+    }
+}
+
+// Hook mood into addMsg
+const _origAddMsg = addMsg;
+// Patch the send function to detect mood after AI replies
+const _origSend = send;
+
+// ── Ambient Sound (Web Audio API) ──
+let audioCtx = null;
+let soundOn = false;
+let noiseNode = null, gainNode = null;
+
+function toggleSound() {
+    soundOn = !soundOn;
+    const btn = document.getElementById('soundBtn');
+    if (soundOn) {
+        startThunder();
+        btn.classList.add('active');
+        btn.textContent = '🔊 Sound';
+        showToast('⚡ Gewitter-Ambient an');
+    } else {
+        stopThunder();
+        btn.classList.remove('active');
+        btn.textContent = '🔇 Sound';
+        showToast('🔇 Sound aus');
+    }
+}
+
+function startThunder() {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const bufferSize = 2 * audioCtx.sampleRate;
+    const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+    const data = noiseBuffer.getChannelData(0);
+    for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
+
+    noiseNode = audioCtx.createBufferSource();
+    noiseNode.buffer = noiseBuffer;
+    noiseNode.loop = true;
+
+    // Low-pass filter for rumble
+    const filter = audioCtx.createBiquadFilter();
+    filter.type = 'lowpass';
+    filter.frequency.value = 180;
+
+    gainNode = audioCtx.createGain();
+    gainNode.gain.value = 0;
+    gainNode.gain.linearRampToValueAtTime(0.12, audioCtx.currentTime + 2);
+
+    noiseNode.connect(filter);
+    filter.connect(gainNode);
+    gainNode.connect(audioCtx.destination);
+    noiseNode.start();
+
+    // Occasional thunder bursts
+    scheduleThunderBurst();
+}
+
+function scheduleThunderBurst() {
+    if (!soundOn) return;
+    const delay = 4000 + Math.random() * 8000;
+    setTimeout(() => {
+        if (!soundOn || !audioCtx) return;
+        const burst = audioCtx.createGain();
+        burst.gain.setValueAtTime(0, audioCtx.currentTime);
+        burst.gain.linearRampToValueAtTime(0.35, audioCtx.currentTime + 0.05);
+        burst.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.8);
+
+        const bufSize = audioCtx.sampleRate * 2;
+        const buf = audioCtx.createBuffer(1, bufSize, audioCtx.sampleRate);
+        const d = buf.getChannelData(0);
+        for (let i = 0; i < bufSize; i++) d[i] = Math.random() * 2 - 1;
+        const src = audioCtx.createBufferSource();
+        src.buffer = buf;
+
+        const flt = audioCtx.createBiquadFilter();
+        flt.type = 'lowpass';
+        flt.frequency.value = 220;
+
+        src.connect(flt);
+        flt.connect(burst);
+        burst.connect(audioCtx.destination);
+        src.start();
+        scheduleThunderBurst();
+    }, delay);
+}
+
+function stopThunder() {
+    if (gainNode) gainNode.gain.linearRampToValueAtTime(0, (audioCtx?.currentTime || 0) + 1);
+    setTimeout(() => {
+        try { noiseNode?.stop(); } catch(e) {}
+        noiseNode = null; gainNode = null;
+    }, 1100);
+}
+
+// ── Mood hook on replies ──
+const originalSend = send;
+async function send() {
+    const q = inputEl.value.trim();
+    detectMood(q); // detect on user's input too
+    await originalSend.call(this);
+}
+// Prevent double-binding; redefine send:
+sendBtn.removeEventListener('click', send);
+
+// ── Vote System ──
+function castVote(who) {
+    const key = 'teslaVote';
+    const counts = JSON.parse(localStorage.getItem('teslaVoteCounts') || '{"tesla":147,"edison":83}');
+    const prev = localStorage.getItem(key);
+
+    if (prev) {
+        counts[prev]--;
+    }
+    counts[who]++;
+    localStorage.setItem(key, who);
+    localStorage.setItem('teslaVoteCounts', JSON.stringify(counts));
+
+    document.getElementById('voteTesla').classList.toggle('voted', who === 'tesla');
+    document.getElementById('voteEdison').classList.toggle('voted', who === 'edison');
+    renderVotes();
+}
+
+function renderVotes() {
+    const counts = JSON.parse(localStorage.getItem('teslaVoteCounts') || '{"tesla":147,"edison":83}');
+    const myVote = localStorage.getItem('teslaVote');
+    const total = counts.tesla + counts.edison;
+    const tPct = total ? Math.round(counts.tesla / total * 100) : 50;
+    const ePct = 100 - tPct;
+
+    document.getElementById('teslaBar').style.width = tPct + '%';
+    document.getElementById('edisonBar').style.width = ePct + '%';
+    document.getElementById('teslaPct').textContent = tPct + '% (' + counts.tesla + ' Stimmen)';
+    document.getElementById('edisonPct').textContent = ePct + '% (' + counts.edison + ' Stimmen)';
+    document.getElementById('voteResults').style.display = 'block';
+    document.getElementById('voteTesla').classList.toggle('voted', myVote === 'tesla');
+    document.getElementById('voteEdison').classList.toggle('voted', myVote === 'edison');
+
+    const leader = counts.tesla > counts.edison ? 'Tesla führt!' : counts.edison > counts.tesla ? 'Edison führt!' : 'Unentschieden!';
+    document.getElementById('voteNote').textContent = myVote
+        ? `Deine Stimme: ${myVote === 'tesla' ? '⚡ Tesla' : '💡 Edison'} · ${leader}`
+        : `${total} Stimmen · ${leader}`;
+}
+
+// ── Stats Counter Animation ──
+function animateCount(id, target, suffix, duration) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const start = performance.now();
+    function frame(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const val = Math.round(eased * target);
+        el.textContent = val.toLocaleString('de-DE') + suffix;
+        if (progress < 1) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+}
+
+let statsAnimated = false;
+function animateStats() {
+    if (statsAnimated) return;
+    statsAnimated = true;
+    animateCount('stat-kwh', 25000, ' TWh', 1800);
+    animateCount('stat-countries', 195, ' Länder', 1400);
+    animateCount('stat-patents', 300, '+', 1200);
+    animateCount('stat-motors', 5000, ' Mio.', 1600);
+    animateCount('stat-evs', 40, ' Mio.', 1300);
+    animateCount('stat-years', new Date().getFullYear() - 1888, ' Jahre', 1000);
+}
+
+// ── Fix send binding (mood now wired above, rebind events) ──
+// Override send to include mood detection
+const _send = async function() {
+    const q = inputEl.value.trim();
+    if (!q || isLoading) return;
+    detectMood(q);
+    if (emptyEl && emptyEl.parentNode) emptyEl.remove();
+    isLoading = true;
+    sendBtn.disabled = true;
+    inputEl.value = '';
+    inputEl.style.height = '';
+    addMsg('user', q);
+    history.push({ role: 'user', content: q });
+    const thinkingEl = addMsg('assistant', '', true);
+    try {
+        const res = await fetch(API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                model: 'llama-3.1-8b-instant',
+                max_tokens: 600,
+                messages: [{ role: 'system', content: TESLA_SYSTEM }, ...history]
+            })
+        });
+        if (!res.ok) { const e = await res.text(); throw new Error(`API ${res.status}: ${e.slice(0,120)}`); }
+        const data = await res.json();
+        const reply = data?.choices?.[0]?.message?.content || 'No response received.';
+        thinkingEl.remove();
+        addMsg('assistant', reply);
+        history.push({ role: 'assistant', content: reply });
+        detectMood(reply);
+    } catch (err) {
+        thinkingEl.remove();
+        addError(err.message || 'Network error — please try again.');
+    } finally {
+        isLoading = false;
+        sendBtn.disabled = false;
+        inputEl.focus();
+    }
+};
+
+// Rebind buttons to new _send
+sendBtn.onclick = _send;
+inputEl.onkeydown = e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); _send(); } };
 </script>
 </body>
 </html>
