@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects - Rintu Chowdory</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            color: white;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        header p {
+            color: rgba(255,255,255,0.85);
+            font-size: 1.1em;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: white;
+            text-decoration: none;
+            margin-bottom: 30px;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+
+        .back-link:hover {
+            opacity: 1;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 15px;
+            padding: 28px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+        }
+
+        .project-icon {
+            font-size: 2.5em;
+            margin-bottom: 16px;
+        }
+
+        .project-card h2 {
+            color: #333;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+
+        .project-card p {
+            color: #666;
+            font-size: 0.95em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .tag {
+            background: #f0ecff;
+            color: #764ba2;
+            font-size: 0.8em;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .project-link {
+            display: inline-block;
+            background: #e82127;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 0.9em;
+            transition: background 0.3s;
+        }
+
+        .project-link:hover {
+            background: #c41a1a;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">← Back</a>
+
+        <header>
+            <h1>Projects</h1>
+            <p>Things I've built and shipped</p>
+        </header>
+
+        <div class="projects-grid">
+
+            <div class="project-card">
+                <div class="project-icon">⚡</div>
+                <h2>Tesla AI Assistant</h2>
+                <p>An AI-powered assistant that answers questions in the voice of Nikola Tesla, powered by AWS Lambda and a custom API.</p>
+                <div class="tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">AWS Lambda</span>
+                    <span class="tag">AI</span>
+                </div>
+                <a href="index.html" class="project-link">Try it →</a>
+            </div>
+
+            <!-- Add more project cards below -->
+
+        </div>
+    </div>
+</body>
+</html>
