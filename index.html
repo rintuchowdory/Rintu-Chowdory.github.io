@@ -1208,7 +1208,9 @@ async function send() {
     const q = inputEl.value.trim();
     if (!q || isLoading) return;
 
-    if (emptyEl) emptyEl.remove();
+    detectMood(q);
+
+    if (emptyEl && emptyEl.parentNode) emptyEl.remove();
     isLoading = true;
     sendBtn.disabled = true;
     inputEl.value = '';
@@ -1244,6 +1246,7 @@ async function send() {
         thinkingEl.remove();
         addMsg('assistant', reply);
         history.push({ role: 'assistant', content: reply });
+        detectMood(reply);
 
     } catch (err) {
         thinkingEl.remove();
@@ -1369,11 +1372,6 @@ function detectMood(text) {
     }
 }
 
-// Hook mood into addMsg
-const _origAddMsg = addMsg;
-// Patch the send function to detect mood after AI replies
-const _origSend = send;
-
 // ── Ambient Sound (Web Audio API) ──
 let audioCtx = null;
 let soundOn = false;
@@ -1461,16 +1459,6 @@ function stopThunder() {
     }, 1100);
 }
 
-// ── Mood hook on replies ──
-const originalSend = send;
-async function send() {
-    const q = inputEl.value.trim();
-    detectMood(q); // detect on user's input too
-    await originalSend.call(this);
-}
-// Prevent double-binding; redefine send:
-sendBtn.removeEventListener('click', send);
-
 // ── Vote System ──
 function castVote(who) {
     const key = 'teslaVote';
@@ -1537,50 +1525,6 @@ function animateStats() {
     animateCount('stat-years', new Date().getFullYear() - 1888, ' Jahre', 1000);
 }
 
-// ── Fix send binding (mood now wired above, rebind events) ──
-// Override send to include mood detection
-const _send = async function() {
-    const q = inputEl.value.trim();
-    if (!q || isLoading) return;
-    detectMood(q);
-    if (emptyEl && emptyEl.parentNode) emptyEl.remove();
-    isLoading = true;
-    sendBtn.disabled = true;
-    inputEl.value = '';
-    inputEl.style.height = '';
-    addMsg('user', q);
-    history.push({ role: 'user', content: q });
-    const thinkingEl = addMsg('assistant', '', true);
-    try {
-        const res = await fetch(API_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                model: 'llama-3.1-8b-instant',
-                max_tokens: 600,
-                messages: [{ role: 'system', content: TESLA_SYSTEM }, ...history]
-            })
-        });
-        if (!res.ok) { const e = await res.text(); throw new Error(`API ${res.status}: ${e.slice(0,120)}`); }
-        const data = await res.json();
-        const reply = data?.choices?.[0]?.message?.content || 'No response received.';
-        thinkingEl.remove();
-        addMsg('assistant', reply);
-        history.push({ role: 'assistant', content: reply });
-        detectMood(reply);
-    } catch (err) {
-        thinkingEl.remove();
-        addError(err.message || 'Network error — please try again.');
-    } finally {
-        isLoading = false;
-        sendBtn.disabled = false;
-        inputEl.focus();
-    }
-};
-
-// Rebind buttons to new _send
-sendBtn.onclick = _send;
-inputEl.onkeydown = e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); _send(); } };
 </script>
 </body>
 </html>
