@@ -1,208 +1,381 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tesla AI Assistant</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rintu Chowdory — DevOps Engineer</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #080b10;
+      --bg2: #0d1117;
+      --surface: #111820;
+      --border: #1e2d3d;
+      --accent: #00d4aa;
+      --accent2: #0099ff;
+      --accent3: #ff6b35;
+      --text: #cdd9e5;
+      --muted: #546e7a;
+      --heading: #e6edf3;
+      --mono: 'JetBrains Mono', monospace;
+      --sans: 'Syne', sans-serif;
+    }
 
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
 
-        .container {
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            max-width: 500px;
-            width: 100%;
-            text-align: center;
-        }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--mono);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
 
-        h1 {
-            color: #333;
-            margin-bottom: 20px;
-            font-size: 2em;
-        }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,212,170,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,212,170,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
 
-        .tesla-icon {
-            font-size: 3em;
-            margin-bottom: 20px;
-            color: #e82127;
-        }
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 3rem;
+      background: rgba(8,11,16,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
 
-        .input-group {
-            margin-bottom: 20px;
-        }
+    .nav-logo { font-family: var(--sans); font-weight: 800; font-size: 1.1rem; color: var(--accent); letter-spacing: -0.02em; }
+    .nav-logo span { color: var(--heading); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-links a.tesla-link { color: #f0c040; }
+    .nav-links a.tesla-link:hover { color: #ffe57a; }
 
-        input[type="text"] {
-            width: 100%;
-            padding: 15px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: border-color 0.3s;
-        }
+    .nav-cta { background: transparent; border: 1px solid var(--accent); color: var(--accent); padding: 0.45rem 1.2rem; font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.08em; cursor: pointer; transition: all 0.2s; text-decoration: none; }
+    .nav-cta:hover { background: var(--accent); color: var(--bg); }
 
-        input[type="text"]:focus {
-            outline: none;
-            border-color: #e82127;
-        }
+    #hero { min-height: 100vh; display: flex; align-items: center; padding: 8rem 3rem 4rem; position: relative; }
+    .hero-inner { max-width: 1100px; margin: 0 auto; width: 100%; }
 
-        button {
-            background: #e82127;
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 8px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
+    .hero-tag { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; color: var(--accent); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 0.6s 0.2s forwards; }
+    .hero-tag::before { content: ''; width: 20px; height: 1px; background: var(--accent); }
 
-        button:hover {
-            background: #c41a1a;
-        }
+    h1.hero-name { font-family: var(--sans); font-size: clamp(3rem, 7vw, 6rem); font-weight: 800; color: var(--heading); line-height: 1.0; letter-spacing: -0.04em; margin-bottom: 0.5rem; opacity: 0; animation: fadeUp 0.6s 0.35s forwards; }
+    h1.hero-name .accent { color: var(--accent); }
 
-        button:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-        }
+    .hero-role { font-family: var(--sans); font-size: clamp(1rem, 2.5vw, 1.5rem); font-weight: 600; color: var(--muted); margin-bottom: 2rem; opacity: 0; animation: fadeUp 0.6s 0.5s forwards; }
+    .hero-desc { max-width: 560px; font-size: 0.9rem; color: var(--text); line-height: 1.8; margin-bottom: 3rem; opacity: 0; animation: fadeUp 0.6s 0.65s forwards; }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; opacity: 0; animation: fadeUp 0.6s 0.8s forwards; }
 
-        .response-container {
-            margin-top: 30px;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 8px;
-            min-height: 100px;
-            text-align: left;
-        }
+    .btn-primary { background: var(--accent); color: var(--bg); padding: 0.8rem 2rem; font-family: var(--mono); font-size: 0.85rem; font-weight: 600; text-decoration: none; letter-spacing: 0.05em; transition: all 0.2s; border: none; cursor: pointer; }
+    .btn-primary:hover { background: #00b894; transform: translateY(-2px); }
+    .btn-outline { background: transparent; color: var(--heading); padding: 0.8rem 2rem; font-family: var(--mono); font-size: 0.85rem; text-decoration: none; letter-spacing: 0.05em; border: 1px solid var(--border); transition: all 0.2s; }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
 
-        .loading {
-            display: none;
-            color: #666;
-            font-style: italic;
-        }
+    .stats-band { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 2rem 3rem; display: flex; justify-content: center; gap: 0; background: var(--bg2); }
+    .stat-item { flex: 1; max-width: 220px; text-align: center; padding: 0 2rem; border-right: 1px solid var(--border); }
+    .stat-item:last-child { border-right: none; }
+    .stat-num { font-family: var(--sans); font-size: 2.5rem; font-weight: 800; color: var(--accent); line-height: 1; }
+    .stat-label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.4rem; }
 
-        .error {
-            color: #e82127;
-            display: none;
-        }
+    section { padding: 6rem 3rem; position: relative; z-index: 1; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-tag { font-size: 0.72rem; color: var(--accent); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.6rem; }
+    .section-tag::before { content: '//'; color: var(--muted); }
+    .section-title { font-family: var(--sans); font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; color: var(--heading); letter-spacing: -0.03em; margin-bottom: 3.5rem; line-height: 1.1; }
 
-        .success {
-            color: #28a745;
-            display: none;
-        }
-    </style>
+    #about { background: var(--bg2); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    .about-text p { font-size: 0.9rem; color: var(--text); line-height: 1.9; margin-bottom: 1.2rem; }
+    .about-text p strong { color: var(--accent); font-weight: 600; }
+    .cert-list { list-style: none; }
+    .cert-item { display: flex; align-items: flex-start; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--border); }
+    .cert-icon { width: 36px; height: 36px; background: rgba(0,212,170,0.1); border: 1px solid rgba(0,212,170,0.2); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 1rem; }
+    .cert-info .cert-name { font-size: 0.85rem; color: var(--heading); font-weight: 600; }
+    .cert-info .cert-issuer { font-size: 0.75rem; color: var(--muted); margin-top: 0.1rem; }
+
+    #skills { background: var(--bg); }
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+    .skill-card { background: var(--surface); border: 1px solid var(--border); padding: 1.8rem; transition: border-color 0.3s, transform 0.3s; position: relative; overflow: hidden; }
+    .skill-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--accent), var(--accent2)); transform: scaleX(0); transform-origin: left; transition: transform 0.3s; }
+    .skill-card:hover { border-color: rgba(0,212,170,0.3); transform: translateY(-4px); }
+    .skill-card:hover::before { transform: scaleX(1); }
+    .skill-card-icon { font-size: 2rem; margin-bottom: 1rem; }
+    .skill-card-title { font-family: var(--sans); font-weight: 700; font-size: 1rem; color: var(--heading); margin-bottom: 1rem; }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .skill-tag { font-size: 0.7rem; padding: 0.25rem 0.65rem; background: rgba(0,212,170,0.08); border: 1px solid rgba(0,212,170,0.15); color: var(--accent); letter-spacing: 0.05em; }
+
+    #projects { background: var(--bg2); }
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1.5rem; }
+
+    .project-card { background: var(--surface); border: 1px solid var(--border); padding: 2rem; transition: all 0.3s; position: relative; overflow: hidden; text-decoration: none; display: block; color: inherit; }
+    .project-card:hover { border-color: rgba(0,212,170,0.4); transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+    .project-card.tesla-card { border-color: rgba(240,192,64,0.2); }
+    .project-card.tesla-card:hover { border-color: rgba(240,192,64,0.5); box-shadow: 0 20px 40px rgba(240,192,64,0.08); }
+
+    .project-num { font-size: 0.7rem; color: var(--muted); letter-spacing: 0.15em; margin-bottom: 1rem; }
+    .project-title { font-family: var(--sans); font-size: 1.15rem; font-weight: 700; color: var(--heading); margin-bottom: 0.8rem; }
+    .project-card.tesla-card .project-title { color: #f0c040; }
+    .project-desc { font-size: 0.82rem; color: var(--text); line-height: 1.7; margin-bottom: 1.5rem; }
+    .project-stack { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.5rem; }
+    .stack-badge { font-size: 0.68rem; padding: 0.2rem 0.6rem; background: rgba(0,153,255,0.1); border: 1px solid rgba(0,153,255,0.2); color: var(--accent2); }
+    .stack-badge.gold { background: rgba(240,192,64,0.1); border-color: rgba(240,192,64,0.25); color: #f0c040; }
+    .project-links { display: flex; gap: 1rem; }
+    .proj-link { font-size: 0.75rem; color: var(--muted); text-decoration: none; letter-spacing: 0.08em; transition: color 0.2s; display: flex; align-items: center; gap: 0.3rem; }
+    .proj-link:hover { color: var(--accent); }
+
+    #experience { background: var(--bg); }
+    .timeline { position: relative; }
+    .timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: linear-gradient(180deg, var(--accent), transparent); }
+    .tl-item { padding: 0 0 3rem 2.5rem; position: relative; }
+    .tl-item::before { content: ''; position: absolute; left: -4px; top: 6px; width: 9px; height: 9px; background: var(--accent); border-radius: 50%; border: 2px solid var(--bg); }
+    .tl-date { font-size: 0.72rem; color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.5rem; }
+    .tl-role { font-family: var(--sans); font-size: 1.1rem; font-weight: 700; color: var(--heading); margin-bottom: 0.2rem; }
+    .tl-company { font-size: 0.82rem; color: var(--muted); margin-bottom: 0.8rem; }
+    .tl-desc { font-size: 0.82rem; color: var(--text); line-height: 1.8; }
+    .tl-desc li { margin-bottom: 0.3rem; list-style: none; padding-left: 1rem; position: relative; }
+    .tl-desc li::before { content: '▸'; position: absolute; left: 0; color: var(--accent); }
+
+    #contact { background: var(--bg2); text-align: center; }
+    .contact-inner { max-width: 600px; margin: 0 auto; }
+    .contact-email { font-family: var(--sans); font-size: clamp(1.5rem, 4vw, 2.5rem); font-weight: 800; color: var(--accent); text-decoration: none; display: block; margin: 2rem 0; transition: opacity 0.2s; }
+    .contact-email:hover { opacity: 0.7; }
+    .social-links { display: flex; justify-content: center; gap: 1.5rem; margin-top: 2rem; flex-wrap: wrap; }
+    .social-link { display: flex; align-items: center; gap: 0.5rem; color: var(--muted); text-decoration: none; font-size: 0.8rem; letter-spacing: 0.08em; padding: 0.6rem 1.2rem; border: 1px solid var(--border); transition: all 0.2s; }
+    .social-link:hover { border-color: var(--accent); color: var(--accent); }
+
+    footer { padding: 1.5rem 3rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-size: 0.72rem; color: var(--muted); }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.6s, transform 0.6s; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 900px) {
+      .about-grid { grid-template-columns: 1fr; }
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      section { padding: 4rem 1.5rem; }
+      #hero { padding: 7rem 1.5rem 3rem; }
+      .stats-band { padding: 2rem 1.5rem; flex-wrap: wrap; gap: 1.5rem; }
+      .stat-item { border-right: none; border-bottom: 1px solid var(--border); }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="tesla-icon">⚡</div>
-        <h1>Tesla AI Assistant</h1>
-        
-        <div class="input-group">
-            <input type="text" id="questionInput" placeholder="Ask Nikola Tesla anything..." onkeypress="handleKeyPress(event)">
-        </div>
-        
-        <button onclick="askTesla()" id="askButton">Ask Tesla</button>
-        
-        <div class="response-container">
-            <div id="loading" class="loading">Tesla is thinking...</div>
-            <div id="error" class="error"></div>
-            <div id="response" class="success"></div>
-        </div>
+
+<nav>
+  <div class="nav-logo"><span>Rintu</span>.devops</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="tesla.html" class="tesla-link">⚡ Tesla</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Hire Me</a>
+</nav>
+
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">DevOps Engineer & Full-Stack Developer</div>
+    <h1 class="hero-name">Rintu<br><span class="accent">Chowdory</span></h1>
+    <p class="hero-role">Infrastructure · Automation · Cloud</p>
+    <p class="hero-desc">
+      I build the infrastructure that keeps software running — automating deployments, designing CI/CD pipelines, and ensuring high availability at scale. Passionate about civic tech and German public services tooling.
+    </p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn-primary">View Projects</a>
+      <a href="#contact" class="btn-outline">Get In Touch</a>
     </div>
+  </div>
+</section>
 
-    <script>
-        const API_URL = 'https://ptmhw2648c.execute-api.eu-central-1.amazonaws.com/Prod/ask';
+<div class="stats-band">
+  <div class="stat-item reveal"><div class="stat-num">85+</div><div class="stat-label">GitHub Repos</div></div>
+  <div class="stat-item reveal"><div class="stat-num">3+</div><div class="stat-label">Years DevOps</div></div>
+  <div class="stat-item reveal"><div class="stat-num">5</div><div class="stat-label">Languages</div></div>
+  <div class="stat-item reveal"><div class="stat-num">∞</div><div class="stat-label">Coffee</div></div>
+</div>
 
-        function handleKeyPress(event) {
-            if (event.key === 'Enter') {
-                askTesla();
-            }
-        }
+<section id="about">
+  <div class="section-inner">
+    <div class="section-tag">Who I Am</div>
+    <h2 class="section-title">Self-taught DevOps<br>Engineer & Developer</h2>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>I'm a <strong>self-taught DevOps engineer</strong> at INGENERIC GmbH in Baesweiler, Germany. I design and automate infrastructure, build CI/CD pipelines, and develop full-stack applications. I thrive at the intersection of operations and development.</p>
+        <p>My expertise spans <strong>Docker, Kubernetes, GitHub Actions, Terraform, and cloud platforms</strong>. I'm passionate about <strong>civic tech</strong> and building tools for German public services — projects like WerRiefAn.de, Krankenkasse Navigator, and GrundgesetzGPT.</p>
+        <p>Languages: Bengali (native), German (B2), English (B2), Russian (B1). Always learning, always building.</p>
+      </div>
+      <div class="reveal">
+        <ul class="cert-list">
+          <li class="cert-item"><div class="cert-icon">🐳</div><div class="cert-info"><div class="cert-name">Docker & Container Orchestration</div><div class="cert-issuer">3+ years hands-on experience</div></div></li>
+          <li class="cert-item"><div class="cert-icon">☁️</div><div class="cert-info"><div class="cert-name">AWS, Azure, GCP, Vercel</div><div class="cert-issuer">Multi-cloud deployments</div></div></li>
+          <li class="cert-item"><div class="cert-icon">🔧</div><div class="cert-info"><div class="cert-name">Terraform & Infrastructure as Code</div><div class="cert-issuer">IaC automation & GitOps</div></div></li>
+          <li class="cert-item"><div class="cert-icon">⚡</div><div class="cert-info"><div class="cert-name">Civic Tech & Government Services</div><div class="cert-issuer">German public sector expertise</div></div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
 
-        async function askTesla() {
-            const question = document.getElementById('questionInput').value.trim();
-            const askButton = document.getElementById('askButton');
-            const loading = document.getElementById('loading');
-            const error = document.getElementById('error');
-            const response = document.getElementById('response');
+<section id="skills">
+  <div class="section-inner">
+    <div class="section-tag">What I Work With</div>
+    <h2 class="section-title">Skills & Technologies</h2>
+    <div class="skills-grid">
+      <div class="skill-card reveal"><div class="skill-card-icon">🐳</div><div class="skill-card-title">Containers & Orchestration</div><div class="skill-tags"><span class="skill-tag">Docker</span><span class="skill-tag">Kubernetes</span><span class="skill-tag">k3s</span><span class="skill-tag">Helm</span></div></div>
+      <div class="skill-card reveal"><div class="skill-card-icon">⚙️</div><div class="skill-card-title">CI/CD & Automation</div><div class="skill-tags"><span class="skill-tag">GitHub Actions</span><span class="skill-tag">Zapier</span><span class="skill-tag">n8n</span><span class="skill-tag">Bash scripting</span></div></div>
+      <div class="skill-card reveal"><div class="skill-card-icon">☁️</div><div class="skill-card-title">Cloud & Hosting</div><div class="skill-tags"><span class="skill-tag">Vercel</span><span class="skill-tag">Cloudflare</span><span class="skill-tag">AWS</span><span class="skill-tag">Render</span></div></div>
+      <div class="skill-card reveal"><div class="skill-card-icon">🏗️</div><div class="skill-card-title">Infrastructure as Code</div><div class="skill-tags"><span class="skill-tag">Terraform</span><span class="skill-tag">Ansible</span><span class="skill-tag">YAML</span><span class="skill-tag">Networking</span></div></div>
+      <div class="skill-card reveal"><div class="skill-card-icon">💻</div><div class="skill-card-title">Full-Stack Development</div><div class="skill-tags"><span class="skill-tag">React</span><span class="skill-tag">Next.js</span><span class="skill-tag">TypeScript</span><span class="skill-tag">Tailwind</span></div></div>
+      <div class="skill-card reveal"><div class="skill-card-icon">🐍</div><div class="skill-card-title">Programming Languages</div><div class="skill-tags"><span class="skill-tag">Python</span><span class="skill-tag">JavaScript</span><span class="skill-tag">Bash</span><span class="skill-tag">Go</span></div></div>
+    </div>
+  </div>
+</section>
 
-            // Reset states
-            error.style.display = 'none';
-            response.style.display = 'none';
-            loading.style.display = 'block';
-            askButton.disabled = true;
+<section id="projects">
+  <div class="section-inner">
+    <div class="section-tag">What I've Built</div>
+    <h2 class="section-title">Featured Projects</h2>
+    <div class="projects-grid">
 
-            if (!question) {
-                showError('Please enter a question');
-                return;
-            }
+      <a href="tesla.html" class="project-card tesla-card reveal">
+        <div class="project-num">00 — INTERACTIVE DASHBOARD</div>
+        <div class="project-title">⚡ Tesla Vision Dashboard</div>
+        <div class="project-desc">Interactive German-language dashboard on Nikola Tesla — AC vs DC, wireless communication, Zukunftsvisionen, and an interactive timeline from 1856 to 1943.</div>
+        <div class="project-stack">
+          <span class="stack-badge gold">HTML/JS</span>
+          <span class="stack-badge gold">Dark UI</span>
+          <span class="stack-badge gold">Deutsch</span>
+        </div>
+        <div class="project-links">
+          <span class="proj-link" style="color:#f0c040;">⚡ Open Dashboard →</span>
+        </div>
+      </a>
 
-            try {
-                const result = await fetch(API_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ question: question })
-                });
+      <div class="project-card reveal">
+        <div class="project-num">01 — CIVIC TECH</div>
+        <div class="project-title">WerRiefAn.de</div>
+        <div class="project-desc">Reverse phone lookup for DACH (Germany, Austria, Switzerland). React/Vite frontend + Cloudflare Worker proxy + Cloudflare KV. Helps users identify spam calls and unknown numbers.</div>
+        <div class="project-stack"><span class="stack-badge">React</span><span class="stack-badge">Cloudflare</span><span class="stack-badge">Vite</span></div>
+        <div class="project-links"><a href="https://github.com/rintuchowdory/WerRiefAn.de" target="_blank" class="proj-link">⬡ GitHub</a></div>
+      </div>
 
-                // Check if response is OK before parsing JSON
-                if (!result.ok) {
-                    throw new Error('API request failed with status: ' + result.status);
-                }
+      <div class="project-card reveal">
+        <div class="project-num">02 — CIVIC TECH</div>
+        <div class="project-title">Krankenkasse Navigator</div>
+        <div class="project-desc">German health insurance comparison tool. React/Vite frontend with Groq LLM via Cloudflare Worker proxy. Helps users find the best health insurance options.</div>
+        <div class="project-stack"><span class="stack-badge">React</span><span class="stack-badge">Groq API</span><span class="stack-badge">GitHub Pages</span></div>
+        <div class="project-links"><a href="https://github.com/rintuchowdory/krankenkasse-navigator" target="_blank" class="proj-link">⬡ GitHub</a></div>
+      </div>
 
-                const data = await result.json();
+      <div class="project-card reveal">
+        <div class="project-num">03 — AI TOOLS</div>
+        <div class="project-title">GrundgesetzGPT</div>
+        <div class="project-desc">German Basic Law AI chat interface. Pure HTML/JS + Groq API. A conversational AI that discusses the German Constitution. Deployed on GitHub Pages.</div>
+        <div class="project-stack"><span class="stack-badge">HTML/JS</span><span class="stack-badge">Groq</span><span class="stack-badge">GitHub Pages</span></div>
+        <div class="project-links"><a href="https://github.com/rintuchowdory/GrundgesetzGPT" target="_blank" class="proj-link">⬡ GitHub</a></div>
+      </div>
 
-                // Handle different response formats
-                if (data.response) {
-                    showResponse(data.response);
-                } else if (data.body && data.body.response) {
-                    showResponse(data.body.response);
-                } else {
-                    showResponse('No response received from Tesla');
-                }
-            } catch (err) {
-                showError('Error: ' + err.message);
-            } finally {
-                loading.style.display = 'none';
-                askButton.disabled = false;
-            }
-        }
+      <div class="project-card reveal">
+        <div class="project-num">04 — DATA VIZ</div>
+        <div class="project-title">Deutschland: Stadt vs. Land</div>
+        <div class="project-desc">Data-driven React/Vite web atlas comparing German urban and rural regions. Uses a Fairness Score system with FastAPI backend. GitHub Actions CI/CD deployment.</div>
+        <div class="project-stack"><span class="stack-badge">React</span><span class="stack-badge">FastAPI</span><span class="stack-badge">Vercel</span></div>
+        <div class="project-links"><a href="https://github.com/rintuchowdory/deutschland-stadt-vs-land" target="_blank" class="proj-link">⬡ GitHub</a></div>
+      </div>
 
-        function showResponse(message) {
-            const responseElement = document.getElementById('response');
-            const errorElement = document.getElementById('error');
-            
-            errorElement.style.display = 'none';
-            responseElement.innerHTML = '<strong>Tesla:</strong> ' + message;
-            responseElement.style.display = 'block';
-        }
+    </div>
+  </div>
+</section>
 
-        function showError(message) {
-            const responseElement = document.getElementById('response');
-            const errorElement = document.getElementById('error');
-            const loadingElement = document.getElementById('loading');
-            
-            loadingElement.style.display = 'none';
-            responseElement.style.display = 'none';
-            errorElement.textContent = message;
-            errorElement.style.display = 'block';
-        }
-    </script>
+<section id="experience">
+  <div class="section-inner">
+    <div class="section-tag">Career</div>
+    <h2 class="section-title">Work Experience</h2>
+    <div class="timeline">
+      <div class="tl-item reveal">
+        <div class="tl-date">2023 — Present</div>
+        <div class="tl-role">DevOps Engineer & Full-Stack Developer</div>
+        <div class="tl-company">INGENERIC GmbH · Baesweiler, Germany</div>
+        <ul class="tl-desc">
+          <li>Manage production infrastructure & CI/CD pipelines</li>
+          <li>Design and deploy containerized applications</li>
+          <li>Automate operations with Bash, Python, and GitHub Actions</li>
+          <li>Maintain WSL2 home lab with k3s Kubernetes cluster (ARM64)</li>
+        </ul>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-date">2022 — Present</div>
+        <div class="tl-role">Self-Employed Developer</div>
+        <div class="tl-company">Rintus Shop · Remote</div>
+        <ul class="tl-desc">
+          <li>Built 85+ GitHub repositories with diverse tech stacks</li>
+          <li>Deployed civic tech projects for German public services</li>
+          <li>Created AI-powered applications using Groq & Cloudflare Workers</li>
+          <li>Freelance life coaching & consulting services</li>
+        </ul>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-date">2021 — 2023</div>
+        <div class="tl-role">Foundation Phase</div>
+        <div class="tl-company">Self-Taught Journey</div>
+        <ul class="tl-desc">
+          <li>Intensive learning of DevOps, Docker, Kubernetes</li>
+          <li>Built first production applications on Vercel & GitHub Pages</li>
+          <li>Established Cloudflare Worker proxy pattern for API security</li>
+          <li>Explored multi-environment development (WSL2, Termux, Kali Linux)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-inner">
+    <div class="contact-inner">
+      <div class="section-tag" style="justify-content:center">Let's Work Together</div>
+      <h2 class="section-title reveal">Have a project<br>in mind?</h2>
+      <p class="reveal" style="font-size:0.88rem; color:var(--muted); margin-bottom:1rem;">
+        I'm open to DevOps consulting, full-stack projects, and civic tech collaborations.
+      </p>
+      <a href="mailto:rintu.chowdory@gmail.com" class="contact-email reveal">rintu.chowdory@gmail.com</a>
+      <div class="social-links reveal">
+        <a href="https://github.com/rintuchowdory" target="_blank" class="social-link">⬡ GitHub</a>
+        <a href="https://linkedin.com/in/rintuchowdory" target="_blank" class="social-link">in LinkedIn</a>
+        <a href="tesla.html" class="social-link" style="border-color:rgba(240,192,64,0.3);color:#f0c040;">⚡ Tesla</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Rintu Chowdory. All rights reserved.</span>
+  <span style="color:var(--accent)">Built with DevOps · Kubernetes · React · Terraform</span>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
 </body>
 </html>
