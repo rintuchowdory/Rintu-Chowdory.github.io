@@ -390,10 +390,227 @@
         }
         .footer a:hover { opacity: 1; }
 
+        /* ── Educational Sections ── */
+        .edu-section {
+            margin-top: 64px;
+        }
+        .edu-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(22px, 5vw, 34px);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+            color: var(--white);
+        }
+        .edu-title .accent { color: var(--blue); }
+        .edu-subtitle {
+            font-size: 14px;
+            color: var(--muted);
+            margin-bottom: 32px;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+        }
+        .tab-btn {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 9px 18px;
+            border-radius: 100px;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--muted);
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        .tab-btn:hover { color: var(--white); border-color: rgba(0,212,255,0.3); }
+        .tab-btn.active {
+            background: rgba(0,212,255,0.1);
+            border-color: var(--blue);
+            color: var(--blue);
+        }
+
+        /* Tab panels */
+        .tab-panel { display: none; animation: msgIn 0.3s ease; }
+        .tab-panel.active { display: block; }
+
+        .edu-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 28px 28px 24px;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.3);
+        }
+
+        .edu-card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--blue);
+            margin-bottom: 14px;
+        }
+
+        .edu-card p {
+            font-size: 14px;
+            line-height: 1.75;
+            color: #c4c8dc;
+            margin-bottom: 14px;
+        }
+        .edu-card p:last-child { margin-bottom: 0; }
+
+        /* Comparison table */
+        .compare-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 18px;
+            font-size: 13px;
+        }
+        .compare-table th {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--muted);
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--border);
+            text-align: left;
+        }
+        .compare-table td {
+            padding: 11px 14px;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            color: #c4c8dc;
+            line-height: 1.5;
+        }
+        .compare-table tr:last-child td { border-bottom: none; }
+        .compare-table td:first-child {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            color: var(--white);
+            width: 28%;
+        }
+        .tag-tesla { color: var(--blue); font-weight: 600; }
+        .tag-edison { color: var(--amber); font-weight: 600; }
+
+        /* Tech chips */
+        .tech-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 18px;
+        }
+        .tech-chip {
+            font-size: 12px;
+            font-weight: 500;
+            padding: 5px 13px;
+            border-radius: 100px;
+            border: 1px solid var(--border);
+            background: rgba(0,212,255,0.05);
+            color: var(--blue);
+        }
+
+        /* Vision cards */
+        .vision-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 14px;
+            margin-top: 18px;
+        }
+        .vision-card {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 16px;
+        }
+        .vision-card .icon { font-size: 24px; margin-bottom: 8px; }
+        .vision-card h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 6px;
+        }
+        .vision-card p {
+            font-size: 12px;
+            color: var(--muted);
+            line-height: 1.6;
+            margin-bottom: 0;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            margin-top: 18px;
+            padding-left: 28px;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 6px;
+            bottom: 6px;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--blue), var(--amber));
+            border-radius: 2px;
+            opacity: 0.4;
+        }
+        .tl-item {
+            position: relative;
+            margin-bottom: 24px;
+            cursor: pointer;
+        }
+        .tl-item:last-child { margin-bottom: 0; }
+        .tl-dot {
+            position: absolute;
+            left: -23px;
+            top: 4px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--blue);
+            border: 2px solid var(--bg);
+            box-shadow: 0 0 8px var(--blue);
+            transition: transform 0.2s;
+        }
+        .tl-item:hover .tl-dot { transform: scale(1.4); }
+        .tl-year {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--amber);
+            letter-spacing: 0.08em;
+            margin-bottom: 2px;
+        }
+        .tl-event {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 4px;
+        }
+        .tl-desc {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.55;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease;
+        }
+        .tl-item.open .tl-desc { max-height: 200px; }
+        .tl-item.open .tl-dot { background: var(--amber); box-shadow: 0 0 8px var(--amber); }
+
         @media (max-width: 500px) {
             .page { padding: 28px 16px 48px; }
             .hero-title { font-size: 36px; }
             .messages { padding: 20px 16px; }
+            .edu-card { padding: 20px 18px; }
+            .vision-grid { grid-template-columns: 1fr 1fr; }
         }
     </style>
 </head>
@@ -449,6 +666,165 @@
     <footer class="footer">
         Built by <a href="https://github.com/rintuchowdory" target="_blank">Rintu Chowdory</a> · Tesla AI runs on Groq llama-3.1-8b-instant
     </footer>
+
+    <!-- ── Educational Section ── -->
+    <section class="edu-section">
+        <h2 class="edu-title">Nikola Tesla – <span class="accent">Die Zukunft,</span><br>die er vorhergesagt hat</h2>
+        <p class="edu-subtitle">Entdecke Teslas Ideen, die unsere Welt bis heute prägen.</p>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('energie')">🔋 Energie</button>
+            <button class="tab-btn" onclick="switchTab('kommunikation')">📡 Drahtlose Kommunikation</button>
+            <button class="tab-btn" onclick="switchTab('visionen')">🤖 Zukunftsvisionen</button>
+            <button class="tab-btn" onclick="switchTab('timeline')">⏳ Timeline</button>
+        </div>
+
+        <!-- ENERGIE -->
+        <div id="panel-energie" class="tab-panel active">
+            <div class="edu-card">
+                <h3>⚡ Wechselstrom (AC) – Teslas größte Errungenschaft</h3>
+                <p>Nikola Tesla entwickelte das Wechselstromsystem (AC – Alternating Current), das heute die gesamte Stromversorgung der Welt antreibt. Im Gegensatz zu Gleichstrom (DC – Direct Current) kann AC über weite Strecken transportiert werden – mit minimalem Energieverlust. Das macht es ideal für Kraftwerke und Stadtnetze.</p>
+                <p>Teslas Erfindung des Mehrphasen-Wechselstromsystems und des Induktionsmotors revolutionierte die Industrie. Gemeinsam mit Westinghouse gewann er den sogenannten „War of Currents" gegen Thomas Edison – und prägte damit das elektrische Zeitalter.</p>
+
+                <table class="compare-table">
+                    <thead>
+                        <tr>
+                            <th>Merkmal</th>
+                            <th class="tag-tesla">AC (Tesla)</th>
+                            <th class="tag-edison">DC (Edison)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Erfinder</td><td>Nikola Tesla</td><td>Thomas Edison</td></tr>
+                        <tr><td>Übertragungsweite</td><td>Hunderte km möglich</td><td>Nur wenige km</td></tr>
+                        <tr><td>Spannung</td><td>Flexibel per Transformator</td><td>Schwer veränderbar</td></tr>
+                        <tr><td>Effizienz</td><td>Sehr hoch</td><td>Gering über Distanz</td></tr>
+                        <tr><td>Heute genutzt</td><td>✅ Weltweit Standard</td><td>⚡ USB, Batterien, Solar</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- DRAHTLOSE KOMMUNIKATION -->
+        <div id="panel-kommunikation" class="tab-panel">
+            <div class="edu-card">
+                <h3>📡 Drahtlose Übertragung – Tesla's Vision aus dem Jahr 1900</h3>
+                <p>Tesla träumte davon, Energie und Informationen ohne Kabel durch die Luft zu übertragen. Sein Wardenclyffe Tower auf Long Island sollte ein globales drahtloses Kommunikationsnetz aufbauen – Jahrzehnte vor dem Internet. Das Projekt scheiterte aus finanziellen Gründen, aber die Idee lebt.</p>
+                <p>Heute sind Teslas Prinzipien überall: WLAN, Bluetooth, 5G, Smartphones, GPS – all das basiert auf den Grundprinzipien elektromagnetischer Wellenübertragung, die Tesla als einer der ersten erforschte. Sogar die drahtlose Ladestation deines Handys nutzt Resonanzübertragung – eine Idee direkt aus Teslas Labor.</p>
+
+                <div class="tech-chips">
+                    <span class="tech-chip">📶 WLAN</span>
+                    <span class="tech-chip">🔵 Bluetooth</span>
+                    <span class="tech-chip">📱 Smartphones</span>
+                    <span class="tech-chip">🛰️ GPS</span>
+                    <span class="tech-chip">⚡ Wireless Charging</span>
+                    <span class="tech-chip">📻 Radio</span>
+                    <span class="tech-chip">🔗 5G / 6G</span>
+                    <span class="tech-chip">🌐 IoT</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ZUKUNFTSVISIONEN -->
+        <div id="panel-visionen" class="tab-panel">
+            <div class="edu-card">
+                <h3>🤖 Was Tesla für die Zukunft sah</h3>
+                <p>Tesla war nicht nur Ingenieur – er war ein Visionär. In Interviews und Schriften beschrieb er Technologien, die erst Jahrzehnte nach seinem Tod verwirklicht wurden. Hier sind seine bemerkenswertesten Prophezeiungen:</p>
+
+                <div class="vision-grid">
+                    <div class="vision-card">
+                        <div class="icon">🤖</div>
+                        <h4>Autonome Roboter</h4>
+                        <p>Tesla beschrieb 1898 ferngesteuerte Maschinen – heute nennen wir sie Drohnen und Roboter.</p>
+                    </div>
+                    <div class="vision-card">
+                        <div class="icon">🧠</div>
+                        <h4>Künstliche Intelligenz</h4>
+                        <p>Er glaubte, Maschinen würden eines Tages denken – und beschrieb etwas, das wir heute KI nennen.</p>
+                    </div>
+                    <div class="vision-card">
+                        <div class="icon">🌆</div>
+                        <h4>Smart Cities</h4>
+                        <p>Tesla sprach von Städten, die vollständig durch elektrische Netze und drahtlose Energie versorgt werden.</p>
+                    </div>
+                    <div class="vision-card">
+                        <div class="icon">☀️</div>
+                        <h4>Solarenergie</h4>
+                        <p>Er schlug vor, die Sonnenenergie für die ganze Menschheit nutzbar zu machen – lange vor Solarpanelen.</p>
+                    </div>
+                    <div class="vision-card">
+                        <div class="icon">🌍</div>
+                        <h4>Freie Energie</h4>
+                        <p>Tesla wollte kostenlose Energie für alle – sein Wardenclyffe-Projekt war der erste Schritt dazu.</p>
+                    </div>
+                    <div class="vision-card">
+                        <div class="icon">✈️</div>
+                        <h4>Elektrisches Fliegen</h4>
+                        <p>Er beschrieb elektrisch angetriebene Flugzeuge – heute arbeitet die Luftfahrtindustrie daran.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TIMELINE -->
+        <div id="panel-timeline" class="tab-panel">
+            <div class="edu-card">
+                <h3>⏳ Interaktive Tesla-Zeitlinie</h3>
+                <p style="margin-bottom:18px">Klicke auf ein Ereignis, um mehr zu erfahren.</p>
+
+                <div class="timeline">
+                    <div class="tl-item" onclick="toggleTl(this)">
+                        <div class="tl-dot"></div>
+                        <div class="tl-year">1856</div>
+                        <div class="tl-event">Geburt in Smiljan, Serbien</div>
+                        <div class="tl-desc">Nikola Tesla wird am 10. Juli 1856 im heutigen Kroatien geboren. Schon als Kind zeigt er außergewöhnliche Rechenfähigkeiten und ein fotografisches Gedächtnis.</div>
+                    </div>
+                    <div class="tl-item" onclick="toggleTl(this)">
+                        <div class="tl-dot"></div>
+                        <div class="tl-year">1875</div>
+                        <div class="tl-event">Studium in Graz & Prag</div>
+                        <div class="tl-desc">Tesla studiert Physik und Elektrotechnik. Er entwickelt bereits erste Ideen für Induktionsmotoren und fasziniert sich für elektromagnetische Felder.</div>
+                    </div>
+                    <div class="tl-item" onclick="toggleTl(this)">
+                        <div class="tl-dot"></div>
+                        <div class="tl-year">1884</div>
+                        <div class="tl-event">Ankunft in New York – Arbeit bei Edison</div>
+                        <div class="tl-desc">Tesla emigriert in die USA mit 4 Cent in der Tasche. Er beginnt bei Thomas Edison zu arbeiten, doch die Zusammenarbeit scheitert an grundlegend verschiedenen Ansichten über AC und DC.</div>
+                    </div>
+                    <div class="tl-item" onclick="toggleTl(this)">
+                        <div class="tl-dot"></div>
+                        <div class="tl-year">1887</div>
+                        <div class="tl-event">Erfindung des Wechselstrom-Induktionsmotors</div>
+                        <div class="tl-desc">Tesla meldet Patente für sein Mehrphasen-Wechselstromsystem an. Westinghouse kauft die Rechte – der Grundstein für die Elektrifizierung Amerikas ist gelegt.</div>
+                    </div>
+                    <div class="tl-item" onclick="toggleTl(this)">
+                        <div class="tl-dot"></div>
+                        <div class="tl-year">1891–1893</div>
+                        <div class="tl-event">War of Currents – Tesla vs. Edison</div>
+                        <div class="tl-desc">Der Stromkrieg eskaliert. Tesla und Westinghouse beleuchten 1893 die Weltausstellung in Chicago mit AC – ein monumentaler öffentlicher Sieg über Edisons DC-System.</div>
+                    </div>
+                    <div class="tl-item" onclick="toggleTl(this)">
+                        <div class="tl-dot"></div>
+                        <div class="tl-year">1899</div>
+                        <div class="tl-event">Colorado Springs – Blitzexperimente</div>
+                        <div class="tl-desc">Tesla errichtet ein Versuchslabor in Colorado Springs und erzeugt künstliche Blitze von über 40 Metern Länge. Er glaubt, die Erde selbst als elektrischen Leiter nutzen zu können.</div>
+                    </div>
+                    <div class="tl-item" onclick="toggleTl(this)">
+                        <div class="tl-dot"></div>
+                        <div class="tl-year">1901–1917</div>
+                        <div class="tl-event">Wardenclyffe Tower – Das gescheiterte Weltprojekt</div>
+                        <div class="tl-desc">Tesla beginnt mit dem Bau des Wardenclyffe Towers auf Long Island – ein globales drahtloses Kommunikations- und Energieübertragungssystem. J.P. Morgan zieht die Finanzierung zurück und der Turm wird nie vollendet.</div>
+                    </div>
+                    <div class="tl-item" onclick="toggleTl(this)">
+                        <div class="tl-dot"></div>
+                        <div class="tl-year">1943</div>
+                        <div class="tl-event">Tod in New York – Vermächtnis unvergessen</div>
+                        <div class="tl-desc">Tesla stirbt am 7. Januar 1943 allein in einem Hotelzimmer in New York. Posthum wird sein Lebenswerk anerkannt – und sein Name lebt in Millionen Technologien weiter, von Elektromotoren bis zum Elektroauto.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
 </main>
 
@@ -614,6 +990,21 @@ inputEl.addEventListener('input', () => {
     inputEl.style.height = '';
     inputEl.style.height = Math.min(inputEl.scrollHeight, 120) + 'px';
 });
+
+// ── Tab switching ──
+function switchTab(id) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('panel-' + id).classList.add('active');
+    event.currentTarget.classList.add('active');
+}
+
+// ── Timeline accordion ──
+function toggleTl(el) {
+    const isOpen = el.classList.contains('open');
+    document.querySelectorAll('.tl-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) el.classList.add('open');
+}
 </script>
 </body>
 </html>
