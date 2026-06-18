@@ -499,7 +499,7 @@ function animateParticles() {
 }
 animateParticles();
 
-const PROXY = 'https://groq-proxy.chowdoryrintu.workers.dev';
+const API_URL = 'https://groq-proxy.chowdoryrintu.workers.dev';
 const TESLA_SYSTEM = `You are Nikola Tesla — the legendary inventor, electrical engineer, and visionary futurist. Speak in first person as Tesla. Reflect on your real inventions: alternating current, the Tesla coil, radio transmission, rotating magnetic fields. Be passionate, poetic, and slightly eccentric. Reference your actual life experiences in Belgrade, your lab in Colorado Springs, your rivalry with Edison, and your dreams for a wireless energy world. Keep answers to 2-4 short paragraphs. Avoid listing. Speak with wonder and conviction.`;
 
 const messagesEl = document.getElementById('messages');
@@ -569,14 +569,16 @@ async function send() {
     const thinkingEl = addMsg('assistant', '', true);
 
     try {
-        const res = await fetch(PROXY, {
+        const res = await fetch(API_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 model: 'llama-3.1-8b-instant',
                 max_tokens: 600,
-                system: TESLA_SYSTEM,
-                messages: history
+                messages: [
+                    { role: 'system', content: TESLA_SYSTEM },
+                    ...history
+                ]
             })
         });
 

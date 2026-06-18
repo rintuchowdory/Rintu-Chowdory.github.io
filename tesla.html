@@ -552,7 +552,7 @@
 })();
 
 /* ── Tesla AI chat ── */
-const PROXY = 'https://groq-proxy.chowdoryrintu.workers.dev';
+const API_URL = 'https://groq-proxy.chowdoryrintu.workers.dev';
 const MODEL = 'llama-3.1-8b-instant';
 
 const TESLA_SYSTEM = `You are Nikola Tesla — inventor, electrical engineer, mechanical engineer, futurist, and one of history's greatest visionaries. Speak always in first person, as Tesla himself.
@@ -611,7 +611,7 @@ async function sendMessage() {
   setLoading(true);
 
   try {
-    const res = await fetch(PROXY, {
+    const res = await fetch(API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
